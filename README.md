@@ -5,7 +5,7 @@ This is a sample web automation project using website Orange HRM https://opensou
 
 There are 2 ways to run: 
 1. Using maven command line ```./mvnw clean install```
-2. Using "testng-regression.xml" file to run
+2. Using ```testng-regression.xml``` file in ```src/test/testng/web``` to run
 
 ### How to get the results ###
 
