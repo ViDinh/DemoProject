@@ -1,0 +1,18 @@
+[
+  {
+    "is_wrong_username": true,
+    "username": "Admin1111",
+    "password": "admin123"
+  },
+  {
+    "is_wrong_username": true,
+    "is_wrong_password": true,
+    "username": "",
+    "password": ""
+  },
+  {
+    "is_wrong_password": true,
+    "username": "Admin",
+    "password": "235235"
+  }
+]
