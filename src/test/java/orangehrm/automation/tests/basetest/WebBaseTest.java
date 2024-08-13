@@ -5,10 +5,7 @@ import constants.Constants;
 import driver.web.Driver;
 import driver.web.DriverManager;
 import environment.Environment;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 import utils.FileUtils;
 
 import java.util.Collections;
@@ -25,7 +22,7 @@ public class WebBaseTest {
 
   @BeforeSuite(alwaysRun = true)
   @Parameters({"env", "browser"})
-  public void cleanDirectoryAndLoadData(String environment, String browser) {
+  public void cleanDirectoryAndLoadData(@Optional("dev") String environment, @Optional("chrome") String browser) {
     String env = Environment.getEnvironment(environment);
     FileUtils.clearDirectory(getDirectorySlash(ALLURE_RESULT_FOLDER));
     environmentSetting = Environment.loadEnvironmentSetting(
