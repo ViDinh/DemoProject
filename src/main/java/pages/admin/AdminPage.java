@@ -14,6 +14,7 @@ import pages.common.CommonPage;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -57,24 +58,24 @@ public class AdminPage extends WebBasePage {
         clickElement(descending, "ascending option");
         break;
     }
-    waitElementAppearAndThenDisappear(commonPage.loadingSpinner, "loading spinner");
+    commonPage.waitSpinner();
     long size = totalListingRow.size();
     List<String> data = new ArrayList<>();
     if (size > 1) {
-      for (int i = 2; i < size + 2; i++) {
+      for (int i = 2; i <= size + 1; i++) {
         data.add(
-            getTextOfElement(getLblCellValue(i, columnName.getColumnPosition()), "cell value"));
+            getTextOfElement(getLblCellValue(i, columnName.getColumnPosition()), "cell value number " + (i-1) + " in column " + columnName));
       }
-      List<String> sort = new ArrayList<>(data);
+      List<String> sortedList = new ArrayList<>(data);
       switch (sortType) {
-        case ASC:
-          Collections.sort(sort);
-          break;
         case DESC:
-          Collections.reverse(sort);
+          sortedList.sort(Comparator.comparing(String::toLowerCase, Comparator.reverseOrder()));
+          break;
+        default:
+          sortedList.sort(String::compareToIgnoreCase);
           break;
       }
-      Assert.assertEquals(data, sort);
+      Assert.assertEquals(data, sortedList);
     }
   }
 }

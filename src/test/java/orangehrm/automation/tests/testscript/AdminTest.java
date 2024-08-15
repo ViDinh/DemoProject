@@ -41,6 +41,14 @@ public class AdminTest extends WebBaseTest {
             environmentSetting.get("password").toString());
     sidebarPage.goToAdminPage();
     adminPage.verifySortByColumnName(ColumnName.USERNAME, SortTypeEnum.ASC);
+    adminPage.verifySortByColumnName(ColumnName.USERNAME, SortTypeEnum.DESC);
+    adminPage.verifySortByColumnName(ColumnName.USER_ROLE, SortTypeEnum.ASC);
+    adminPage.verifySortByColumnName(ColumnName.USER_ROLE, SortTypeEnum.DESC);
+    adminPage.verifySortByColumnName(ColumnName.EMPLOYEE_NAME, SortTypeEnum.ASC);
+    adminPage.verifySortByColumnName(ColumnName.EMPLOYEE_NAME, SortTypeEnum.DESC);
+    adminPage.verifySortByColumnName(ColumnName.STATUS, SortTypeEnum.ASC);
+    adminPage.verifySortByColumnName(ColumnName.STATUS, SortTypeEnum.DESC);
+
   }
 
   @AfterMethod(alwaysRun = true)
