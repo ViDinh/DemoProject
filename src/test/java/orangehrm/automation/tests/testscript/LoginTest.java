@@ -20,7 +20,10 @@ public class LoginTest extends WebBaseTest {
 
   @Test(dataProvider = "getLoginNegativeCases", dataProviderClass = LoginProvider.class)
   public void testNegativeLogin(ExtendCredential credential) {
-    loginPage.navigateAndLoginToSystem(credential.getUsername(), credential.getPassword());
+    loginPage.navigateAndLoginToSystem(
+        environmentSetting.get("url").toString(),
+        credential.getUsername(),
+        credential.getPassword());
     loginPage.verifyLoginWithNegativeCase(credential);
   }
 }

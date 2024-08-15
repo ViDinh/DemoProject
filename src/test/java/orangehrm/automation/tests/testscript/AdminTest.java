@@ -1,17 +1,20 @@
 package orangehrm.automation.tests.testscript;
 
+import driver.web.DriverManager;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import lombok.extern.slf4j.Slf4j;
 import model.enums.ColumnName;
 import model.enums.SortTypeEnum;
+import orangehrm.automation.tests.basetest.WebBaseTest;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.admin.AdminPage;
+import pages.common.CommonPage;
 import pages.login.LoginPage;
 import pages.sidebar.SidebarPage;
-
-import orangehrm.automation.tests.basetest.WebBaseTest;
 
 @Feature("Admin page")
 @Slf4j
@@ -19,21 +22,31 @@ public class AdminTest extends WebBaseTest {
   private LoginPage loginPage;
   private SidebarPage sidebarPage;
   private AdminPage adminPage;
+  private CommonPage commonPage;
 
   @BeforeClass
   public void initWebSteps() {
     loginPage = new LoginPage();
     sidebarPage = new SidebarPage();
     adminPage = new AdminPage();
+    commonPage = new CommonPage();
   }
 
   @Test
   @Story("Verify sort by column name")
   public void verifySortByColumnName() {
     loginPage.navigateAndLoginToSystem(
-        environmentSetting.get("username").toString(),
-        environmentSetting.get("password").toString());
+            environmentSetting.get("url").toString(),
+            environmentSetting.get("username").toString(),
+            environmentSetting.get("password").toString());
     sidebarPage.goToAdminPage();
     adminPage.verifySortByColumnName(ColumnName.USERNAME, SortTypeEnum.ASC);
   }
+
+  @AfterMethod(alwaysRun = true)
+  public void clean(){
+    log.info("Logout");
+    commonPage.logout();
+  }
+
 }

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 public class JacksonUtils {
 
   @Getter private static final ObjectMapper objectMapper = initializeObjectMapper();
@@ -40,6 +42,7 @@ public class JacksonUtils {
           objectMapper.readValue(inputStream, new TypeReference<List<Map<String, Object>>>() {});
       return covertListToObject(list, clzz);
     } catch (IOException e) {
+      log.error("Failed to read the file {}", filePath);
       throw new RuntimeException(e);
     }
   }

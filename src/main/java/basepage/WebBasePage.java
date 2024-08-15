@@ -17,6 +17,11 @@ public class WebBasePage {
     this.driver = DriverManager.getDriver();
   }
 
+  public void goToUrl(String url){
+    log.info("Go to url: {}", url);
+    driver.get(url);
+  }
+
   /* WebElement */
   public void clickElement(By by, String elementName, long... timeOut) {
     log.info("Click on element {}", elementName);

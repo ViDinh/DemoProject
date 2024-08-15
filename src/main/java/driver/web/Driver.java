@@ -18,7 +18,7 @@ public class Driver {
     return instance;
   }
 
-  public void initWebDriver(String url, String browserName) {
+  public void initWebDriver(String browserName) {
     Browser browser = Browser.fromValues(browserName);
     switch (browser) {
       case FIREFOX -> DriverManager.setDriver(new FirefoxDriver());
@@ -27,7 +27,6 @@ public class Driver {
     }
     WebDriver driver = DriverManager.getDriver();
     driver.manage().window().maximize();
-    driver.get(url);
   }
 
   private void initHeadlessChromeWebDriver() {

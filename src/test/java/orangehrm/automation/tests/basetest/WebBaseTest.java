@@ -33,7 +33,7 @@ public class WebBaseTest {
   @BeforeTest(alwaysRun = true)
   @Parameters("browser")
   public void initDriver(String browserName) {
-    Driver.getInstance().initWebDriver(environmentSetting.get("url").toString(), browserName);
+    Driver.getInstance().initWebDriver(browserName);
   }
 
   @AfterTest(alwaysRun = true)

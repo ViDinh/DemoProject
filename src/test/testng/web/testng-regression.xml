@@ -6,6 +6,7 @@
         <listener class-name="listener.Listener"/>
         <listener class-name="listener.MethodListener"/>
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+        <listener class-name="retry.RetryListener"/>
     </listeners>
     <parameter name="env" value="dev"/>
     <parameter name="browser" value="chrome"/>
