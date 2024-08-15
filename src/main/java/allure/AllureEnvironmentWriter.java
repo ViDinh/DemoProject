@@ -1,11 +1,13 @@
 package allure;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
+@Slf4j
 public class AllureEnvironmentWriter {
 
   public static void writeEnvironmentInfo(String browser, String env) {
@@ -25,7 +27,7 @@ public class AllureEnvironmentWriter {
       FileUtils.writeStringToFile(new File(allureResultsDir, "environment.properties"),
           propsToString(props), "UTF-8");
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("Failed to write the file environment.properties to {}", allureResultsDir);
     }
   }
 

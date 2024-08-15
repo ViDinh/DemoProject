@@ -21,9 +21,9 @@ public class AllureAppender extends AppenderBase<ILoggingEvent> {
   }
 
   @Override
-  protected void append(ILoggingEvent iLoggingEvent) {
-    if (iLoggingEvent.getLevel().toString().equals("INFO") && isPackedIncluded(iLoggingEvent.getLoggerName())){
-      String message = iLoggingEvent.getFormattedMessage();
+  protected void append(ILoggingEvent loggingEvent) {
+    if (loggingEvent.getLevel().toString().equals("INFO") && isPackedIncluded(loggingEvent.getLoggerName())){
+      String message = loggingEvent.getFormattedMessage();
       StringBuilder builder = logs.get();
       if (builder == null){
         builder = new StringBuilder();

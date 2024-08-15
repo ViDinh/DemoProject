@@ -71,8 +71,9 @@ public class LoginPage extends WebBasePage {
     return getTextOfElement(alertMessage, "alert message");
   }
 
-  public void navigateAndLoginToSystem(String username, String password) {
+  public void navigateAndLoginToSystem(String url, String username, String password) {
     log.info("Navigate and login to system");
+    goToUrl(url);
     inputToUsernameTextBox(username);
     inputToPasswordTextBox(password);
     clickToLoginButton();
