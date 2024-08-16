@@ -2,6 +2,7 @@ package pages.admin;
 
 import basepage.WebBasePage;
 import driver.web.DriverManager;
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import model.enums.ColumnName;
 import model.enums.SortTypeEnum;
@@ -45,8 +46,8 @@ public class AdminPage extends WebBasePage {
     PageFactory.initElements(DriverManager.getDriver(), this);
   }
 
+  @Step("Verify sort by column name {columnName} with sort type {sortType}")
   public void verifySortByColumnName(ColumnName columnName, SortTypeEnum sortType) {
-    log.info("Verify sort by column name");
     clickElement(
         sortIconByHeader(columnName.getColumnName()),
         "sort icon in column " + columnName.getColumnName());
@@ -75,7 +76,7 @@ public class AdminPage extends WebBasePage {
           sortedList.sort(String::compareToIgnoreCase);
           break;
       }
-      Assert.assertEquals(data, sortedList);
+      enhancedSoftAssert.assertEquals(data, sortedList);
     }
   }
 }

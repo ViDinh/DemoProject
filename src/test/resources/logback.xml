@@ -6,8 +6,10 @@
     </appender>
 
     <appender name="ALLURE" class="allure.AllureAppender" >
-        <includedPackages>pages, orangehrm.automation.tests.testscript</includedPackages>
+        <includedPackages>softassert, pages, orangehrm.automation.tests.testscript</includedPackages>
     </appender>
+
+    <logger name="io.qameta.allure.AllureLifecycle" level="OFF"/>
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>

@@ -2,6 +2,7 @@ package pages.login;
 
 import basepage.WebBasePage;
 import driver.web.DriverManager;
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import model.ExtendCredential;
 import model.enums.MessageEnum;
@@ -37,50 +38,50 @@ public class LoginPage extends WebBasePage {
     PageFactory.initElements(DriverManager.getDriver(), this);
   }
 
+  @Step("Input to username text box")
   public void inputToUsernameTextBox(String username) {
-    log.info("Input to username textbox");
     if (username != null) {
       sendKeysToElement(txtUsername, "username text box", username);
     }
   }
 
+  @Step("Get error at username")
   public String getErrorAtUsername() {
-    log.info("Get error at username textbox");
     return getTextOfElement(errorAtUsername, "error below username text box");
   }
 
+  @Step("Input to password text box")
   public void inputToPasswordTextBox(String password) {
-    log.info("Input to password textbox");
     if (password != null) {
       sendKeysToElement(txtPassword, "password text box", password);
     }
   }
 
+  @Step("Get error at password")
   public String getErrorAtPassword() {
-    log.info("Get error at password textbox");
     return getTextOfElement(errorAtPassword, "error below password text box");
   }
 
+  @Step("Click to login button")
   public void clickToLoginButton() {
-    log.info("Click login button");
     clickElement(btnLogin, "login button");
   }
 
+  @Step("Get alert at password")
   public String getAlertMessage() {
-    log.info("Get alert message");
     return getTextOfElement(alertMessage, "alert message");
   }
 
+  @Step("Navigate and login to login")
   public void navigateAndLoginToSystem(String url, String username, String password) {
-    log.info("Navigate and login to system");
     goToUrl(url);
     inputToUsernameTextBox(username);
     inputToPasswordTextBox(password);
     clickToLoginButton();
   }
 
+  @Step("Verify login with negative case")
   public void verifyLoginWithNegativeCase(ExtendCredential credential) {
-    log.info("Verify login with negative case");
     if (credential.isWrongPassword() && credential.isWrongUsername()) {
       verifyEmptyFields(credential);
     } else if (credential.isWrongPassword() || credential.isWrongUsername()) {
@@ -104,7 +105,7 @@ public class LoginPage extends WebBasePage {
   }
 
   private void assertErrorMessage(String actualMessage, String expectedMessage) {
-    Assert.assertEquals(
+    enhancedSoftAssert.assertEquals(
         actualMessage, expectedMessage, MessageEnum.ERROR_MESSAGE_DOES_NOT_MATCH.getValue());
   }
 

@@ -2,10 +2,15 @@ package allure;
 
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.AppenderBase;
+import driver.web.DriverManager;
 import io.qameta.allure.Allure;
 import io.qameta.allure.AllureLifecycle;
 import io.qameta.allure.model.Status;
 import io.qameta.allure.model.StepResult;
+import listener.Listener;
+import org.openqa.selenium.WebDriver;
+
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,35 +21,45 @@ public class AllureAppender extends AppenderBase<ILoggingEvent> {
   private static final ThreadLocal<StringBuilder> logs = new ThreadLocal<>();
   private List<String> includedPackages = new ArrayList<>();
 
-  public void setIncludedPackages(String packages){
+  public void setIncludedPackages(String packages) {
     this.includedPackages = Arrays.asList(packages.split(","));
   }
 
   @Override
   protected void append(ILoggingEvent loggingEvent) {
-    if (loggingEvent.getLevel().toString().equals("INFO") && isPackedIncluded(loggingEvent.getLoggerName())){
-      String message = loggingEvent.getFormattedMessage();
-      StringBuilder builder = logs.get();
-      if (builder == null){
-        builder = new StringBuilder();
-        logs.set(builder);
-      }
-      builder.append(message).append("\n");
-
-      String uuid = UUID.randomUUID().toString();
-      StepResult result = new StepResult().setName("Log").setStatus(Status.PASSED);
-      lifeCycle.startStep(uuid, result);
-      lifeCycle.updateStep(uuid, step -> step.setName(message));
-      lifeCycle.stopStep(uuid);
+    String message = loggingEvent.getFormattedMessage();
+    StringBuilder builder = logs.get();
+    String uuid = "";
+    StepResult result;
+    if (builder == null) {
+      builder = new StringBuilder();
+      logs.set(builder);
     }
+
+    if (loggingEvent.getLevel().toString().equals("INFO")
+        && isPackedIncluded(loggingEvent.getLoggerName())) {
+      builder.append(message).append("\n");
+      uuid = UUID.randomUUID().toString();
+      result = new StepResult().setName("Log").setStatus(Status.PASSED);
+      lifeCycle.startStep(uuid, result);
+    } else if (loggingEvent.getLevel().toString().equals("ERROR")
+        && isPackedIncluded(loggingEvent.getLoggerName())) {
+      builder.append(message).append("\n");
+      uuid = UUID.randomUUID().toString();
+      result = new StepResult().setName("Log").setStatus(Status.FAILED);
+      lifeCycle.startStep(uuid, result);
+    }
+
+    lifeCycle.updateStep(uuid, step -> step.setName(message));
+    lifeCycle.stopStep(uuid);
   }
 
-  private boolean isPackedIncluded(String loggerName  ){
-    if (includedPackages.isEmpty()){
+  private boolean isPackedIncluded(String loggerName) {
+    if (includedPackages.isEmpty()) {
       return true;
     }
-    for (String pkg: includedPackages){
-      if (loggerName.startsWith(pkg.trim())){
+    for (String pkg : includedPackages) {
+      if (loggerName.startsWith(pkg.trim())) {
         return true;
       }
     }
@@ -52,9 +67,9 @@ public class AllureAppender extends AppenderBase<ILoggingEvent> {
   }
 
   @Override
-  public void stop(){
+  public void stop() {
     StringBuilder builder = logs.get();
-    if (builder!=null && !builder.isEmpty()){
+    if (builder != null && !builder.isEmpty()) {
       Allure.addAttachment("Consolidated INFO logs", "text/plain", builder.toString());
       logs.remove();
     }

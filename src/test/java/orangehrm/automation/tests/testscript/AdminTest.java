@@ -1,6 +1,5 @@
 package orangehrm.automation.tests.testscript;
 
-import driver.web.DriverManager;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import lombok.extern.slf4j.Slf4j;
@@ -9,7 +8,6 @@ import model.enums.SortTypeEnum;
 import orangehrm.automation.tests.basetest.WebBaseTest;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.admin.AdminPage;
 import pages.common.CommonPage;
@@ -48,7 +46,6 @@ public class AdminTest extends WebBaseTest {
     adminPage.verifySortByColumnName(ColumnName.EMPLOYEE_NAME, SortTypeEnum.DESC);
     adminPage.verifySortByColumnName(ColumnName.STATUS, SortTypeEnum.ASC);
     adminPage.verifySortByColumnName(ColumnName.STATUS, SortTypeEnum.DESC);
-
   }
 
   @AfterMethod(alwaysRun = true)

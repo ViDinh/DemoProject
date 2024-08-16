@@ -7,14 +7,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import softassert.EnhancedSoftAssert;
 
 @Slf4j
 public class WebBasePage {
 
   protected WebDriver driver;
+  protected EnhancedSoftAssert enhancedSoftAssert;
+
   
   public WebBasePage() {
     this.driver = DriverManager.getDriver();
+    enhancedSoftAssert = new EnhancedSoftAssert();
   }
 
   public void goToUrl(String url){
