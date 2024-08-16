@@ -2,6 +2,7 @@ package pages.common;
 
 import basepage.WebBasePage;
 import driver.web.DriverManager;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -25,6 +26,7 @@ public class CommonPage extends WebBasePage {
     waitElementAppearAndThenDisappear(loadingSpinner, "loading spinner");
   }
 
+  @Step("Logout")
   public void logout(){
     clickElement(userDropdown, "User dropdown");
     clickElement(logout, "Logout");

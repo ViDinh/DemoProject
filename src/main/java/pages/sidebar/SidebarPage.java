@@ -2,6 +2,7 @@ package pages.sidebar;
 
 import basepage.WebBasePage;
 import driver.web.DriverManager;
+import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -54,15 +55,15 @@ public class SidebarPage extends WebBasePage {
     PageFactory.initElements(DriverManager.getDriver(), this);
   }
 
+  @Step("Go to Admin page")
   public SidebarPage goToAdminPage() {
-    log.info("Go to Admin page");
     clickElement(admin, "admin option in side bar");
     commonPage.waitSpinner();
     return this;
   }
 
+  @Step("Go to Dashboard page")
   public SidebarPage goToDashboardPage() {
-    log.info("Go to Dashboard page");
     clickElement(dashboard, "admin option in side bar");
     return this;
   }
