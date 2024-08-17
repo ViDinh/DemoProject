@@ -2,35 +2,29 @@ package listener;
 
 import driver.web.DriverManager;
 import io.qameta.allure.Attachment;
+import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 
+@Slf4j
 public class Listener implements ITestListener {
 
-  static final Logger log = LoggerFactory.getLogger(Listener.class);
-
-  private static String getTestMethodName(ITestResult iTestResult) {
-    return iTestResult.getMethod().getConstructorOrMethod().getName();
+  @Override
+  public void onTestStart(ITestResult result) {
+    log.info("Test Started: {}", result.getName());
   }
 
   @Override
-  public void onTestStart(ITestResult iTestResult) {
-    log.info("---> {} Start!", getTestMethodName(iTestResult));
+  public void onTestSuccess(ITestResult result) {
+    log.info("Test Passed: {}", result.getName());
   }
 
   @Override
-  public void onTestSuccess(ITestResult iTestResult) {
-    log.info("---> {} Passed!", getTestMethodName(iTestResult));
-  }
-
-  @Override
-  public void onTestFailure(ITestResult iTestResult) {
-    log.error("---> {} Failed! Please read reasons below..", getTestMethodName(iTestResult));
+  public void onTestFailure(ITestResult result) {
+    log.error("Test Failed: {}", result.getName());
     saveScreenshotPNG(DriverManager.getDriver());
   }
 
