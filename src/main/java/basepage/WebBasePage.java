@@ -3,6 +3,8 @@ package basepage;
 import constants.Constants;
 import driver.web.DriverManager;
 import java.time.Duration;
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -67,6 +69,11 @@ public class WebBasePage {
     return element.getText();
   }
 
+  public List<String> getTextOfElements(List<WebElement> elements, String elementName, long... timeOut) {
+    waitElementAvailable(elements, elementName, timeOut);
+    return elements.stream().map(WebElement::getText).toList();
+  }
+
   /* WebDriverWait */
   public void waitElementAvailable(By by, String elementName, long... timeOut) {
     log.info("Wait element {} is visible", elementName);
@@ -80,6 +87,13 @@ public class WebBasePage {
     long timeout = timeOut.length > 0 ? timeOut[0] : Constants.LONG_TIME_OUT;
     WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
     wait.until(ExpectedConditions.visibilityOf(element));
+  }
+
+  public void waitElementAvailable(List<WebElement> element, String elementName, long... timeOut) {
+    log.info("Wait element {} is visible", elementName);
+    long timeout = timeOut.length > 0 ? timeOut[0] : Constants.LONG_TIME_OUT;
+    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
+    wait.until(ExpectedConditions.visibilityOfAllElements(element));
   }
 
   public void waitElementClickable(By by, String elementName, long... timeOut) {

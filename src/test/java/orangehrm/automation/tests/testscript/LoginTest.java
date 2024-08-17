@@ -2,7 +2,7 @@ package orangehrm.automation.tests.testscript;
 
 import dataprovider.LoginProvider;
 import lombok.extern.slf4j.Slf4j;
-import model.ExtendCredential;
+import model.login.ExtendCredential;
 import orangehrm.automation.tests.basetest.WebBaseTest;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
