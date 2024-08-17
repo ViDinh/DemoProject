@@ -1,0 +1,16 @@
+[
+  {
+    "username": "Admin",
+    "user_role": "Admin",
+    "status": "Enabled"
+  },
+  {
+    "username": "Admin"
+  },
+  {
+    "status": "Enabled"
+  },
+  {
+    "status": "Disabled"
+  }
+]

@@ -1,7 +1,7 @@
 package dataprovider;
 
 import constants.Constants;
-import model.ExtendCredential;
+import model.login.ExtendCredential;
 import org.testng.annotations.DataProvider;
 import utils.JsonArrayConverter;
 

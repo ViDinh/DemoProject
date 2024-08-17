@@ -1,4 +1,4 @@
-package model;
+package model.login;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

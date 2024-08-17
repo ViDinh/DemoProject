@@ -1,13 +1,17 @@
 package orangehrm.automation.tests.testscript;
 
+import dataprovider.AdminProvider;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
-import model.enums.ColumnName;
+import model.admin.Search;
+import model.enums.ColumnNameAdminPage;
 import model.enums.SortTypeEnum;
 import orangehrm.automation.tests.basetest.WebBaseTest;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.admin.AdminPage;
 import pages.common.CommonPage;
@@ -30,22 +34,34 @@ public class AdminTest extends WebBaseTest {
     commonPage = new CommonPage();
   }
 
-  @Test
-  @Story("Verify sort by column name")
-  public void verifySortByColumnName() {
+  @BeforeMethod
+  public void loginToSystemAndGoToAdminPage(){
     loginPage.navigateAndLoginToSystem(
             environmentSetting.get("url").toString(),
             environmentSetting.get("username").toString(),
             environmentSetting.get("password").toString());
     sidebarPage.goToAdminPage();
-    adminPage.verifySortByColumnName(ColumnName.USERNAME, SortTypeEnum.ASC);
-    adminPage.verifySortByColumnName(ColumnName.USERNAME, SortTypeEnum.DESC);
-    adminPage.verifySortByColumnName(ColumnName.USER_ROLE, SortTypeEnum.ASC);
-    adminPage.verifySortByColumnName(ColumnName.USER_ROLE, SortTypeEnum.DESC);
-    adminPage.verifySortByColumnName(ColumnName.EMPLOYEE_NAME, SortTypeEnum.ASC);
-    adminPage.verifySortByColumnName(ColumnName.EMPLOYEE_NAME, SortTypeEnum.DESC);
-    adminPage.verifySortByColumnName(ColumnName.STATUS, SortTypeEnum.ASC);
-    adminPage.verifySortByColumnName(ColumnName.STATUS, SortTypeEnum.DESC);
+  }
+
+  @Test
+  @Story("Verify sort by column name")
+  public void verifySortByColumnName() {
+    adminPage.verifySortByColumnName(ColumnNameAdminPage.USERNAME, SortTypeEnum.ASC);
+    adminPage.verifySortByColumnName(ColumnNameAdminPage.USERNAME, SortTypeEnum.DESC);
+    adminPage.verifySortByColumnName(ColumnNameAdminPage.USER_ROLE, SortTypeEnum.ASC);
+    adminPage.verifySortByColumnName(ColumnNameAdminPage.USER_ROLE, SortTypeEnum.DESC);
+    adminPage.verifySortByColumnName(ColumnNameAdminPage.EMPLOYEE_NAME, SortTypeEnum.ASC);
+    adminPage.verifySortByColumnName(ColumnNameAdminPage.EMPLOYEE_NAME, SortTypeEnum.DESC);
+    adminPage.verifySortByColumnName(ColumnNameAdminPage.STATUS, SortTypeEnum.ASC);
+    adminPage.verifySortByColumnName(ColumnNameAdminPage.STATUS, SortTypeEnum.DESC);
+  }
+
+  @Test(dataProvider = "getSearchData", dataProviderClass = AdminProvider.class)
+  @Story("Verify search in admin page")
+  public void verifySearch(Search search) {
+    adminPage.searchUsers(search);
+    List<Search> valueAfterSearch = adminPage.getRowValues();
+    adminPage.verifyValueAfterSearch(search, valueAfterSearch);
   }
 
   @AfterMethod(alwaysRun = true)

@@ -4,7 +4,6 @@ import driver.web.DriverManager;
 import listener.ExceptionCollector;
 import listener.Listener;
 import lombok.extern.slf4j.Slf4j;
-import org.openqa.selenium.WebDriver;
 import org.testng.Reporter;
 import org.testng.asserts.IAssert;
 import org.testng.asserts.SoftAssert;

@@ -4,12 +4,12 @@ import basepage.WebBasePage;
 import driver.web.DriverManager;
 import io.qameta.allure.Step;
 import lombok.extern.slf4j.Slf4j;
-import model.ExtendCredential;
+import model.login.ExtendCredential;
 import model.enums.MessageEnum;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.testng.Assert;
+import pages.common.CommonPage;
 
 import java.util.function.Supplier;
 
@@ -33,8 +33,10 @@ public class LoginPage extends WebBasePage {
   @FindBy(xpath = "//div[@role='alert']//p")
   WebElement alertMessage;
 
+  private CommonPage commonPage;
   public LoginPage() {
     super();
+    commonPage = new CommonPage();
     PageFactory.initElements(DriverManager.getDriver(), this);
   }
 
@@ -95,7 +97,7 @@ public class LoginPage extends WebBasePage {
   }
 
   private void verifyEmptyField(String field, Supplier<String> errorGetter) {
-    if (isNullOrEmpty(field)) {
+    if (commonPage.isNullOrEmpty(field)) {
       assertErrorMessage(errorGetter.get(), MessageEnum.REQUIRED.getValue());
     }
   }
@@ -109,7 +111,4 @@ public class LoginPage extends WebBasePage {
         actualMessage, expectedMessage, MessageEnum.ERROR_MESSAGE_DOES_NOT_MATCH.getValue());
   }
 
-  private boolean isNullOrEmpty(String str) {
-    return str == null || str.isEmpty();
-  }
 }
