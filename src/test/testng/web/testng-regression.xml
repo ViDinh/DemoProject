@@ -9,7 +9,7 @@
         <listener class-name="retry.RetryListener"/>
     </listeners>
     <parameter name="env" value="dev"/>
-    <parameter name="browser" value="chrome"/>
+    <parameter name="browser" value="headless_chrome"/>
 
         <test name="Login Test">
             <classes>
