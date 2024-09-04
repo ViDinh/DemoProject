@@ -35,6 +35,8 @@ public class Driver {
     options.addArguments("--remote-allow-origins=*");
     options.addArguments("--headless");
     options.addArguments("window-size=1920x1080");
+    options.addArguments("--no-sandbox");
+    options.addArguments("--disable-dev-shm-usage");
     DriverManager.setDriver(new ChromeDriver(options));
   }
 }
