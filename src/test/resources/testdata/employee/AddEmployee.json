@@ -1,0 +1,21 @@
+[
+  {
+    "first_name": "Alie",
+    "middle_name": null,
+    "last_name": "William",
+    "emp_picture": "female_avatar.png",
+    "employee_id": "03961",
+    "is_create_login_credential": true,
+    "username": "AlieWilliam",
+    "password": "Admin123",
+    "is_active": true
+  },
+  {
+    "first_name": "Nam",
+    "middle_name": "Van",
+    "last_name": "Nguyen",
+    "emp_picture": null,
+    "employee_id": "03961",
+    "is_active": false
+  }
+]

@@ -57,6 +57,14 @@ public class WebBasePage {
     element.clear();
     element.sendKeys(valueToSend);
   }
+
+  public void sendKeysBoardToElement(
+          WebElement element, String elementName, Keys valueToSend, long... timeOut) {
+    log.info("Send keys '{}' on element {}", valueToSend, elementName);
+    waitElementClickable(element, elementName, timeOut);
+    element.clear();
+    element.sendKeys(valueToSend);
+  }
   
   public String getTextOfElement(By by, String elementName, long... timeOut) {
     waitElementAvailable(by, elementName, timeOut);
@@ -67,6 +75,11 @@ public class WebBasePage {
   public String getTextOfElement(WebElement element, String elementName, long... timeOut) {
     waitElementAvailable(element, elementName, timeOut);
     return element.getText();
+  }
+
+  public String getAttributeOfElement(WebElement element, String elementName, String attribute, long... timeOut) {
+    waitElementAvailable(element, elementName, timeOut);
+    return element.getAttribute(attribute);
   }
 
   public List<String> getTextOfElements(List<WebElement> elements, String elementName, long... timeOut) {
@@ -151,5 +164,31 @@ public class WebBasePage {
   public boolean isElementNotDisplayed(WebElement element) {
     return !element.isDisplayed();
   }
-  
+
+  public void clearTextUsingJS(WebElement element) {
+    JavascriptExecutor js = (JavascriptExecutor) driver;
+    js.executeScript("arguments[0].value = '';", element);
+  }
+
+  public void clearText(WebElement element, String elementName, long... timeout) {
+    long defaultTimeout = timeout.length > 0 ? timeout[0] : Constants.SHORT_TIME_OUT;
+    String textOfElement = getAttributeOfElement(element, elementName, "value", defaultTimeout);
+    int length = textOfElement.length();
+    for(int i = 0; i < length; i++) {
+      sendKeysBoardToElement(element, elementName, Keys.BACK_SPACE);
+    }
+  }
+
+  public void uploadFile(
+          WebElement element, String elementName, String valueToSend) {
+    log.info("Upload '{}' on element {}", valueToSend, elementName);
+    element.sendKeys(valueToSend);
+  }
+
+  public boolean waitForImageToBeUpdated(WebElement element, String elementName, String defaultPhotoSrc, long... timeout) {
+    long defaultTimeout = timeout.length > 0 ? timeout[0] : Constants.SHORT_TIME_OUT;
+    waitElementAvailable(element, elementName, defaultTimeout);
+    String currentSrc = element.getAttribute("src");
+    return currentSrc != null && !currentSrc.contains(defaultPhotoSrc);
+  }
 }
