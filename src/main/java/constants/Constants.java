@@ -11,10 +11,15 @@ public class Constants {
   public static final String RESOURCE_PATH = ROOT_PATH + SEPARATOR + "src" + SEPARATOR + "test" + SEPARATOR + "resources";
   public static final String ENVIRONMENT_PATH = RESOURCE_PATH + SEPARATOR + "environment";
   public static final String TEST_DATA = "testdata";
+  public static final String DEFAULT_PHOTO_SRC = "/web/images/default-photo.png";
 
   private Constants() {}
 
   public static String getDirectorySlash(String folderName) {
     return SEPARATOR + folderName + SEPARATOR;
+  }
+
+  public static String getTestData() {
+    return RESOURCE_PATH + getDirectorySlash(TEST_DATA);
   }
 }

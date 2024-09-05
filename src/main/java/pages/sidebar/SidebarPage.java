@@ -67,4 +67,10 @@ public class SidebarPage extends WebBasePage {
     clickElement(dashboard, "admin option in side bar");
     return this;
   }
+
+  @Step("Go to PIM page")
+  public SidebarPage goToPIMPage() {
+    clickElement(PIM, "PIM option in side bar");
+    return this;
+  }
 }

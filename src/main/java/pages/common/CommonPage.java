@@ -34,8 +34,8 @@ public class CommonPage extends WebBasePage {
     PageFactory.initElements(DriverManager.getDriver(), this);
   }
 
-  public void waitSpinner() {
-    waitElementAppearAndThenDisappear(loadingSpinner, "loading spinner");
+  public void waitSpinner(long...timeout) {
+    waitElementAppearAndThenDisappear(loadingSpinner, "loading spinner", timeout);
   }
 
   @Step("Logout")
